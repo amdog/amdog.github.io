@@ -11,9 +11,11 @@ window.onload = function () {
         });
     }
     setTimeout(() => {
-        for(let i=0;i<5;i++){
-            this.ajax(`https://amdog.github.io/page/${i}.html`,(data)=>{
-                if(!!data){
+        for (let i = 0; i < 5; i++) {
+            ajax(`https://amdog.github.io/page/${i}.html`, (data) => {
+                console.log(!data);
+                
+                if (!!data) {
                     createEle(i)
                 }
             })
@@ -21,10 +23,10 @@ window.onload = function () {
     }, 0);
 }
 
-function createEle(index){
-    let div=document.createElement('div')
-    div.className='card';
-    div.innerHTML=`<div class="dsc">
+function createEle(index) {
+    let div = document.createElement('div')
+    div.className = 'card';
+    div.innerHTML = `<div class="dsc">
     <img src="./img/date.svg" alt="">2020-3-3
     <img src="./img/eay.svg" alt="">200
 </div>
@@ -35,15 +37,11 @@ function createEle(index){
     <div class="title">title</div>
 </div>`
     document.getElementsByTagName('body')[0].appendChild(div)
-    div.lastChild.innerText=document.getElementById(`i${index}`).contentWindow.document.getElementsByTagName('title')[0].text
+    div.lastChild.innerText = document.getElementById(`i${index}`).contentWindow.document.getElementsByTagName('title')[0].text
 }
 
-function ajax(url,cb) {
+function ajax(url, cb) {
     let xmlhttp;
-    if (str.length == 0) {
-        document.getElementById("txtHint").innerHTML = "";
-        return;
-    }
     if (window.XMLHttpRequest) {
         xmlhttp = new XMLHttpRequest();
     } else {
@@ -52,7 +50,7 @@ function ajax(url,cb) {
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             cb(xmlhttp.responseText);
-        }else{
+        } else {
             cb(null);
         }
     }

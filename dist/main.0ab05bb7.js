@@ -119,8 +119,6 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   return newRequire;
 })({"script/main.js":[function(require,module,exports) {
 window.onload = function () {
-  var _this = this;
-
   //document.documentElement.scrollTop = 1
   var clamp = function clamp(x, min, max) {
     return Math.max(min, Math.min(x, max));
@@ -139,7 +137,9 @@ window.onload = function () {
 
   setTimeout(function () {
     var _loop = function _loop(i) {
-      _this.ajax("https://amdog.github.io/page/".concat(i, ".html"), function (data) {
+      ajax("https://amdog.github.io/page/".concat(i, ".html"), function (data) {
+        console.log(!data);
+
         if (!!data) {
           createEle(i);
         }
@@ -162,11 +162,6 @@ function createEle(index) {
 
 function ajax(url, cb) {
   var xmlhttp;
-
-  if (str.length == 0) {
-    document.getElementById("txtHint").innerHTML = "";
-    return;
-  }
 
   if (window.XMLHttpRequest) {
     xmlhttp = new XMLHttpRequest();
@@ -213,7 +208,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62319" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50371" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

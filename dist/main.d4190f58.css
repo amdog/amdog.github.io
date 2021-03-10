@@ -119,7 +119,7 @@
    }
 
    .ifra {
-       border: 20px solid #fff;
+       border: 10px solid #fff;
        width: 400px;
        height: 300px;
    }
@@ -159,6 +159,7 @@
 
 
    .card:first-child {
+       position:relative;
        width: 100%;
        border-radius:12px ;
        background: url('/img.9c6d0151.jpg') repeat-x !important;
