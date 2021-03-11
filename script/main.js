@@ -16,9 +16,10 @@ window.onload = function () {
     }
 
     function scro() {
-        let old = new Date().getTime()
+        let start = true
         return function () {
-            if (new Date().getTime() - old > 1000) {
+            if (!start) return;
+            setTimeout(() => {
                 now++;
                 if (now != -1) {
                     ajax(`https://amdog.github.io/page/${now}.html`, (data) => {
@@ -29,7 +30,7 @@ window.onload = function () {
                         }
                     })
                 }
-            }
+            }, 1000)
         }
     }
 

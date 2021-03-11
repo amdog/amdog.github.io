@@ -139,9 +139,10 @@ window.onload = function () {
   };
 
   function scro() {
-    var old = new Date().getTime();
+    var start = true;
     return function () {
-      if (new Date().getTime() - old > 1000) {
+      if (!start) return;
+      setTimeout(function () {
         now++;
 
         if (now != -1) {
@@ -153,7 +154,7 @@ window.onload = function () {
             }
           });
         }
-      }
+      }, 1000);
     };
   }
 
