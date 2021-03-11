@@ -48,9 +48,32 @@ window.onload = function () {
 
 let now = 5
 
+
+function search() {
+    let keyword = document.getElementsByTagName('input')[1].value
+    let eles = []
+    let oldEles = Array.from(document.querySelectorAll('.card'))
+    oldEles.forEach((c, i) => {
+        if (c.textContent.indexOf(keyword) > -1) {
+            eles.push(c)
+        }
+        if (i + 1 == oldEles.length) {
+            let list = document.querySelector('.list')
+            while (list.firstChild) {
+                list.removeChild(list.firstChild)
+            }
+            eles.forEach(ele=>{
+                list.appendChild(ele)
+            })
+        }
+    })
+}
+
+
 function createEle(index) {
     let div = document.createElement('div')
     div.className = 'card';
+    div.id = `c${index}`
     div.innerHTML = `<div class="dsc">
     <img src="./img/date.svg" alt="">2020-3-3
     <img src="./img/eay.svg" alt="">200
@@ -59,7 +82,7 @@ function createEle(index) {
     <div class="ifra">
         <iframe  scrolling='no' id='i${index}' src='https://amdog.github.io/page/${index}.html' frameborder="0"></iframe>
     </div>
-    <div class="title">title</div>
+    <div class="title" id='t${index}'>title</div>
 </div>`
     let list = document.getElementsByClassName('list')[0]
     list.appendChild(div)

@@ -175,10 +175,34 @@ window.onload = function () {
 
 var now = 5;
 
+function search() {
+  var keyword = document.getElementsByTagName('input')[1].value;
+  var eles = [];
+  var oldEles = Array.from(document.querySelectorAll('.card'));
+  oldEles.forEach(function (c, i) {
+    if (c.textContent.indexOf(keyword) > -1) {
+      eles.push(c);
+    }
+
+    if (i + 1 == oldEles.length) {
+      var list = document.querySelector('.list');
+
+      while (list.firstChild) {
+        list.removeChild(list.firstChild);
+      }
+
+      eles.forEach(function (ele) {
+        list.appendChild(ele);
+      });
+    }
+  });
+}
+
 function createEle(index) {
   var div = document.createElement('div');
   div.className = 'card';
-  div.innerHTML = "<div class=\"dsc\">\n    <img src=\"./img/date.svg\" alt=\"\">2020-3-3\n    <img src=\"./img/eay.svg\" alt=\"\">200\n</div>\n<div class=\"main\">\n    <div class=\"ifra\">\n        <iframe  scrolling='no' id='i".concat(index, "' src='https://amdog.github.io/page/").concat(index, ".html' frameborder=\"0\"></iframe>\n    </div>\n    <div class=\"title\">title</div>\n</div>");
+  div.id = "c".concat(index);
+  div.innerHTML = "<div class=\"dsc\">\n    <img src=\"./img/date.svg\" alt=\"\">2020-3-3\n    <img src=\"./img/eay.svg\" alt=\"\">200\n</div>\n<div class=\"main\">\n    <div class=\"ifra\">\n        <iframe  scrolling='no' id='i".concat(index, "' src='https://amdog.github.io/page/").concat(index, ".html' frameborder=\"0\"></iframe>\n    </div>\n    <div class=\"title\" id='t").concat(index, "'>title</div>\n</div>");
   var list = document.getElementsByClassName('list')[0];
   list.appendChild(div); //list.style.height=`${index*300+200}px`
 
@@ -237,7 +261,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53291" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50329" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
