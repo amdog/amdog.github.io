@@ -1,20 +1,42 @@
 window.onload = function () {
-    //document.documentElement.scrollTop = 1
     const clamp = (x, min, max) => Math.max(min, Math.min(x, max));
-    const cards = Array.from(document.querySelectorAll(".card"));
     window.onscroll = (e) => {
+        const cards = Array.from(document.querySelectorAll(".card"));
         cards.forEach((card, i) => {
             const scale = clamp((400 + 300 * i - e.target.documentElement.scrollTop) / 300, 0, 1);
             const opacity = clamp((400 + 300 * i - e.target.documentElement.scrollTop) / 300, 0, 1);
             card.style.transform = `scale(${scale})`;
             card.style.opacity = `${opacity}`;
+            card.style.zIndex = `${i}`
+            //节流
+            if (e.target.documentElement.scrollTop > (now - 2) * 400) {
+                scro()
+            }
         });
     }
+
+    function scro() {
+        let old = new Date().getTime()
+        return function () {
+            if (new Date().getTime() - old > 1000) {
+                now++;
+                if (now != -1) {
+                    ajax(`https://amdog.github.io/page/${now}.html`, (data) => {
+                        if (!!data) {
+                            createEle(now)
+                        } else {
+                            now = -1
+                        }
+                    })
+                }
+            }
+        }
+    }
+
+
     setTimeout(() => {
-        for (let i = 0; i < 5; i++) {
+        for (let i = 1; i <= 5; i++) {
             ajax(`https://amdog.github.io/page/${i}.html`, (data) => {
-                console.log(!data);
-                
                 if (!!data) {
                     createEle(i)
                 }
@@ -22,6 +44,8 @@ window.onload = function () {
         }
     }, 0);
 }
+
+let now = 5
 
 function createEle(index) {
     let div = document.createElement('div')
@@ -36,8 +60,13 @@ function createEle(index) {
     </div>
     <div class="title">title</div>
 </div>`
-    document.getElementsByTagName('body')[0].appendChild(div)
-    div.lastChild.innerText = document.getElementById(`i${index}`).contentWindow.document.getElementsByTagName('title')[0].text
+    let list = document.getElementsByClassName('list')[0]
+    list.appendChild(div)
+    //list.style.height=`${index*300+200}px`
+    let ifra = document.getElementById(`i${index}`)
+    ifra.contentWindow.document.onload = () => {
+        div.lastChild.innerText = ifra.contentWindow.document.getElementsByTagName('title')[0].text
+    }
 }
 
 function ajax(url, cb) {

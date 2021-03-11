@@ -98,7 +98,8 @@
        align-items: center;
    }
 
-   .dsc img {
+   .dsc img {width: 48px;
+    height: 48px;
        margin-left: 20px;
    }
 
@@ -154,11 +155,11 @@
    }
 
    .card:hover {
-       margin-bottom: 0;
+       margin-bottom: 0px;
    }
 
-
    .card:first-child {
+       z-index: -1;
        position:relative;
        width: 100%;
        border-radius:12px ;

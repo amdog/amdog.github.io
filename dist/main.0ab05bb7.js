@@ -119,45 +119,73 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   return newRequire;
 })({"script/main.js":[function(require,module,exports) {
 window.onload = function () {
-  //document.documentElement.scrollTop = 1
   var clamp = function clamp(x, min, max) {
     return Math.max(min, Math.min(x, max));
   };
 
-  var cards = Array.from(document.querySelectorAll(".card"));
-
   window.onscroll = function (e) {
+    var cards = Array.from(document.querySelectorAll(".card"));
     cards.forEach(function (card, i) {
       var scale = clamp((400 + 300 * i - e.target.documentElement.scrollTop) / 300, 0, 1);
       var opacity = clamp((400 + 300 * i - e.target.documentElement.scrollTop) / 300, 0, 1);
       card.style.transform = "scale(".concat(scale, ")");
       card.style.opacity = "".concat(opacity);
+      card.style.zIndex = "".concat(i); //节流
+
+      if (e.target.documentElement.scrollTop > (now - 2) * 400) {
+        scro();
+      }
     });
   };
+
+  function scro() {
+    var old = new Date().getTime();
+    return function () {
+      if (new Date().getTime() - old > 1000) {
+        now++;
+
+        if (now != -1) {
+          ajax("https://amdog.github.io/page/".concat(now, ".html"), function (data) {
+            if (!!data) {
+              createEle(now);
+            } else {
+              now = -1;
+            }
+          });
+        }
+      }
+    };
+  }
 
   setTimeout(function () {
     var _loop = function _loop(i) {
       ajax("https://amdog.github.io/page/".concat(i, ".html"), function (data) {
-        console.log(!data);
-
         if (!!data) {
           createEle(i);
         }
       });
     };
 
-    for (var i = 0; i < 5; i++) {
+    for (var i = 1; i <= 5; i++) {
       _loop(i);
     }
   }, 0);
 };
 
+var now = 5;
+
 function createEle(index) {
   var div = document.createElement('div');
   div.className = 'card';
   div.innerHTML = "<div class=\"dsc\">\n    <img src=\"./img/date.svg\" alt=\"\">2020-3-3\n    <img src=\"./img/eay.svg\" alt=\"\">200\n</div>\n<div class=\"main\">\n    <div class=\"ifra\">\n        <iframe  scrolling='no' id='i".concat(index, "' src='https://amdog.github.io/page/").concat(index, ".html' frameborder=\"0\"></iframe>\n    </div>\n    <div class=\"title\">title</div>\n</div>");
-  document.getElementsByTagName('body')[0].appendChild(div);
-  div.lastChild.innerText = document.getElementById("i".concat(index)).contentWindow.document.getElementsByTagName('title')[0].text;
+  var list = document.getElementsByClassName('list')[0];
+  list.appendChild(div); //list.style.height=`${index*300+200}px`
+
+  var ifra = document.getElementById("i".concat(index));
+
+  ifra.contentWindow.document.onload = function () {
+    div.lastChild.innerText = ifra.contentWindow.document.getElementsByTagName('title')[0].text;
+  };
 }
 
 function ajax(url, cb) {
@@ -208,7 +236,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50371" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53291" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
