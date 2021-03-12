@@ -123,7 +123,6 @@ window.onload = function () {
     return Math.max(min, Math.min(x, max));
   };
 
-  isMobile();
   var start = new Date().getTime();
 
   window.onscroll = function (e) {
@@ -144,6 +143,7 @@ window.onload = function () {
 
               _e.innerHTML = regex.exec(data)[0];
               _e.innerHTML = _e.textContent;
+              isMobile();
             }
           });
           start = new Date().getTime();
@@ -226,6 +226,10 @@ function isMobile() {
     document.getElementsByTagName('input')[1].style.width = '50px';
     document.querySelectorAll('.card').forEach(function (c) {
       c.style.width = '100%';
+
+      c.onclick = function () {
+        console.log(0);
+      };
     });
     document.querySelectorAll('.ifra').forEach(function (c) {
       c.style.width = '280px';
@@ -261,7 +265,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56573" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50566" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

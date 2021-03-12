@@ -1,6 +1,5 @@
 window.onload = function () {
     const clamp = (x, min, max) => Math.max(min, Math.min(x, max));
-isMobile()
     let start = new Date().getTime()
     window.onscroll = (e) => {
         const cards = Array.from(document.querySelectorAll(".card"));
@@ -18,6 +17,7 @@ isMobile()
                             let e = document.getElementById(`t${tmp}`)
                             e.innerHTML = regex.exec(data)[0];
                             e.innerHTML = e.textContent;
+                            isMobile()
                         }
                     })
                     start = new Date().getTime()
@@ -104,6 +104,9 @@ function isMobile(){
         document.getElementsByTagName('input')[1].style.width='50px'
         document.querySelectorAll('.card').forEach(c=>{
             c.style.width='100%'
+            c.onclick=function(){
+                console.log(0);
+            }
         })
         document.querySelectorAll('.ifra').forEach(c=>{
             c.style.width='280px'

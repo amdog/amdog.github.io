@@ -5,7 +5,8 @@
        text-decoration: none;
        color: #000;
    }
-   :root{
+
+   :root {
        font-size: 10px;
    }
 
@@ -104,14 +105,17 @@
        color: #fff;
    }
 
-   .dsc img {width: 48px;
-    height: 48px;
+   .dsc img {
+       width: 48px;
+       height: 48px;
        margin-left: 20px;
    }
 
    .title {
        font-size: 4rem;
+       line-height: 1rem;
        width: 600px;
+       height: 400px;
    }
 
    .list {
@@ -164,12 +168,12 @@
 
    .card:first-child {
        z-index: -1;
-       position:relative;
+       position: relative;
        display: flex;
        justify-content: center;
        align-items: center;
        width: 100%;
-       border-radius:12px ;
+       border-radius: 12px;
        background: url('../img/index.jpg') repeat-x !important;
        box-shadow: 0 0 0 0 !important;
    }
@@ -188,5 +192,13 @@
        transform-origin: 50% 100%;
        width: 90%;
        margin: 0 auto;
+       -ms-transition:all 0.4s;
+       /*IE*/
+       -moz-transition: all 0.4s;
+       /* Firefox 4 */
+       -webkit-transition: all 0.4s;
+       /* Safari 和 Chrome */
+       -o-transition: all 0.4s;
+       /* Opera */
        margin-bottom: -100px;
    }
