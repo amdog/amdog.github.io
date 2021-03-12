@@ -1,11 +1,6 @@
 window.onload = function () {
     const clamp = (x, min, max) => Math.max(min, Math.min(x, max));
-
-
-    if(document.documentElement.clientHeight > document.documentElement.clientWidth){
-        document.getElementsByTagName('input')[0].style.width='200px'
-        document.getElementsByTagName('input')[1].style.width='50px'
-    }
+isMobile()
     let start = new Date().getTime()
     window.onscroll = (e) => {
         const cards = Array.from(document.querySelectorAll(".card"));
@@ -39,6 +34,7 @@ window.onload = function () {
             card.style.opacity = `${opacity}`;
             card.style.zIndex = `${i}`
     }
+
 
     setTimeout(() => {
         for (let i = 1; i <= 5; i++) {
@@ -78,7 +74,8 @@ function createEle(index) {
     <a href='https://amdog.github.io/page/${index}.html'> <div class="title" id='t${index}'></div></a>
 </div>`
     let list = document.getElementsByClassName('list')[0]
-    list.appendChild(div)
+    list.appendChild(div);
+    isMobile()
 }
 
 function ajax(url, cb) {
@@ -97,4 +94,21 @@ function ajax(url, cb) {
     }
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
+}
+
+
+function isMobile(){
+    if(document.documentElement.clientHeight > document.documentElement.clientWidth){
+        document.getElementsByClassName('sear-box')[0].style.width='220px'
+        document.getElementsByTagName('input')[0].style.width='140px'
+        document.getElementsByTagName('input')[1].style.width='50px'
+        document.querySelectorAll('.card').forEach(c=>{
+            c.style.width='100%'
+        })
+        document.querySelectorAll('.ifra').forEach(c=>{
+            c.style.width='280px'
+            c.style.height='200px'
+        })
+
+    }
 }

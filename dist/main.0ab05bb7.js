@@ -123,11 +123,7 @@ window.onload = function () {
     return Math.max(min, Math.min(x, max));
   };
 
-  if (document.documentElement.clientHeight > document.documentElement.clientWidth) {
-    document.getElementsByTagName('input')[0].style.width = '200px';
-    document.getElementsByTagName('input')[1].style.width = '50px';
-  }
-
+  isMobile();
   var start = new Date().getTime();
 
   window.onscroll = function (e) {
@@ -199,6 +195,7 @@ function createEle(index) {
   div.innerHTML = "<div class=\"dsc\">\n    <img src=\"./img/date.svg\" alt=\"\">".concat(parseInt(Math.random() * 12 % 12), "-").concat(parseInt(Math.random() * 28 % 28), "\n    <img src=\"./img/eay.svg\" alt=\"\">").concat(parseInt(Math.random() * 1000), "\n</div>\n<div class=\"main\">\n    <div class=\"ifra\">\n        <iframe  scrolling='no' id='i").concat(index, "' src='https://amdog.github.io/page/").concat(index, ".html' frameborder=\"0\"></iframe>\n    </div>\n    <a href='https://amdog.github.io/page/").concat(index, ".html'> <div class=\"title\" id='t").concat(index, "'></div></a>\n</div>");
   var list = document.getElementsByClassName('list')[0];
   list.appendChild(div);
+  isMobile();
 }
 
 function ajax(url, cb) {
@@ -220,6 +217,21 @@ function ajax(url, cb) {
 
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
+}
+
+function isMobile() {
+  if (document.documentElement.clientHeight > document.documentElement.clientWidth) {
+    document.getElementsByClassName('sear-box')[0].style.width = '220px';
+    document.getElementsByTagName('input')[0].style.width = '140px';
+    document.getElementsByTagName('input')[1].style.width = '50px';
+    document.querySelectorAll('.card').forEach(function (c) {
+      c.style.width = '100%';
+    });
+    document.querySelectorAll('.ifra').forEach(function (c) {
+      c.style.width = '280px';
+      c.style.height = '200px';
+    });
+  }
 }
 },{}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -249,7 +261,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56074" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56573" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
