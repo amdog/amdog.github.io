@@ -117,124 +117,74 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"script/main.js":[function(require,module,exports) {
-window.onload = function () {
-  var clamp = function clamp(x, min, max) {
-    return Math.max(min, Math.min(x, max));
+})({"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
+
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
+
+  return bundleURL;
+}
+
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
   };
 
-  var start = new Date().getTime();
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
 
-  window.onscroll = function (e) {
-    var cards = Array.from(document.querySelectorAll(".card"));
-    cards.forEach(function (card, i) {
-      //节流
-      if (document.documentElement.clientHeight + e.target.documentElement.scrollTop >= document.documentElement.offsetHeight - 600) {
-        if (new Date().getTime() > start + 1000 && now > 0) {
-          var tmp = now + 1;
-          now = -9999999999999;
-          ajax("https://amdog.github.io/page/".concat(tmp, ".html"), function (data) {
-            if (!!data) {
-              now = tmp;
-              var regex = /.*?<title>(.*?)<\/title>.*?/;
-              createEle(tmp);
+var cssTimeout = null;
 
-              var _e = document.getElementById("t".concat(tmp));
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
 
-              _e.innerHTML = regex.exec(data)[0];
-              _e.innerHTML = _e.textContent;
-              isMobile();
-            }
-          });
-          start = new Date().getTime();
-        }
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
       }
-
-      resizeZ(card, i, e);
-    });
-  };
-
-  function resizeZ(card, i, e) {
-    var scale = clamp((400 + 300 * i - e.target.documentElement.scrollTop) / 300, 0, 1);
-    var opacity = clamp((400 + 300 * i - e.target.documentElement.scrollTop) / 300, 0, 1);
-    card.style.transform = "scale(".concat(scale, ")");
-    card.style.opacity = "".concat(opacity);
-    card.style.zIndex = "".concat(i);
-  }
-
-  setTimeout(function () {
-    var _loop = function _loop(i) {
-      ajax("https://amdog.github.io/page/".concat(i, ".html"), function (data) {
-        if (!!data) {
-          var regex = /.*?<title>(.*?)<\/title>.*?/;
-          createEle(i);
-          var e = document.getElementById("t".concat(i));
-          e.innerHTML = regex.exec(data)[0];
-          e.innerHTML = e.textContent;
-        }
-      });
-    };
-
-    for (var i = 1; i <= 5; i++) {
-      _loop(i);
     }
-  }, 500);
-};
 
-var now = 5;
-
-document.getElementsByTagName('input')[1].onclick = function searchAc() {
-  var keyword = document.getElementsByTagName('input')[0].value;
-  window.location.href = 'https://github.com/amdog/amdog.github.io/search?q=' + keyword;
-};
-
-function createEle(index) {
-  var div = document.createElement('div');
-  div.className = 'card';
-  div.id = "c".concat(index);
-  div.innerHTML = "<div class=\"dsc\">\n    <img src=\"./img/date.svg\" alt=\"\">".concat(parseInt(Math.random() * 12 % 12), "-").concat(parseInt(Math.random() * 28 % 28), "\n    <img src=\"./img/eay.svg\" alt=\"\">").concat(parseInt(Math.random() * 1000), "\n</div>\n<div class=\"main\">\n    <div class=\"ifra\">\n        <iframe  scrolling='no' id='i").concat(index, "' src='https://amdog.github.io/page/").concat(index, ".html' frameborder=\"0\"></iframe>\n    </div>\n    <a href='https://amdog.github.io/page/").concat(index, ".html'> <div class=\"title\" id='t").concat(index, "'></div></a>\n</div>");
-  var list = document.getElementsByClassName('list')[0];
-  list.appendChild(div);
-  isMobile();
+    cssTimeout = null;
+  }, 50);
 }
 
-function ajax(url, cb) {
-  var xmlhttp;
-
-  if (window.XMLHttpRequest) {
-    xmlhttp = new XMLHttpRequest();
-  } else {
-    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-  }
-
-  xmlhttp.onreadystatechange = function () {
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-      cb(xmlhttp.responseText);
-    } else {
-      cb(null);
-    }
-  };
-
-  xmlhttp.open("GET", url, true);
-  xmlhttp.send();
-}
-
-function isMobile() {
-  if (document.documentElement.clientHeight > document.documentElement.clientWidth) {
-    document.getElementsByClassName('sear-box')[0].style.width = '220px';
-    document.getElementsByTagName('input')[0].style.width = '140px';
-    document.getElementsByTagName('input')[1].style.width = '50px';
-    document.documentElement.style.fontSize = '5px';
-    document.querySelectorAll('.card').forEach(function (c) {
-      c.style.width = '100%';
-    });
-    document.querySelectorAll('.ifra').forEach(function (c) {
-      c.style.width = '280px';
-      c.style.height = '200px';
-    });
-  }
-}
-},{}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+module.exports = reloadCSS;
+},{"./bundle-url":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -262,7 +212,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52882" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53765" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -438,5 +388,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","script/main.js"], null)
-//# sourceMappingURL=/main.0ab05bb7.js.map
+},{}]},{},["../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js"], null)
+//# sourceMappingURL=/2.js.map

@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>标题字动效</title>
-    <style>
-        h1{
+    <style>h1{
             font-size: 4rem;
         }
         body{
@@ -50,32 +49,27 @@
             animation-timing-function: ease-in-out;
             animation-duration: 0.4s;
             animation-delay: var(--delay);
-        }
-    </style>
+        }</style>
 </head>
 <body>
     <h1>amdog.github.io</h1>
-    <button data-animation='jump'>JUMP</button>
-    <button data-animation='pop'>POP</button>
-    <button data-animation='blink'>BLINK</button>        
+    <button data-animation="jump">JUMP</button>
+    <button data-animation="pop">POP</button>
+    <button data-animation="blink">BLINK</button>        
 </body>
-<script>
-    let h1=document.querySelector('h1')
-    h1.innerHTML=h1.textContent.replace(/\S/g,'<span>$&</span>')
-
-    document.querySelectorAll('span').forEach((e,i)=>{
-        e.style.setProperty('--delay',`${i*0.1}s`)
-    })
-
-    document.querySelectorAll('button').forEach(e=>{
-        e.addEventListener('click',()=>{
-            h1.style.setProperty('--animation',e.getAttribute('data-animation'))
-            h1.classList.remove('animation')
-            setTimeout(()=>{
-                void h1.offsetHeight;
-                h1.classList.add('animation')
-            },0)
-        })
-    })
-</script>
+<script>var h1 = document.querySelector('h1');
+h1.innerHTML = h1.textContent.replace(/\S/g, '<span>$&</span>');
+document.querySelectorAll('span').forEach(function (e, i) {
+  e.style.setProperty('--delay', "".concat(i * 0.1, "s"));
+});
+document.querySelectorAll('button').forEach(function (e) {
+  e.addEventListener('click', function () {
+    h1.style.setProperty('--animation', e.getAttribute('data-animation'));
+    h1.classList.remove('animation');
+    setTimeout(function () {
+      void h1.offsetHeight;
+      h1.classList.add('animation');
+    }, 0);
+  });
+});</script>
 </html>

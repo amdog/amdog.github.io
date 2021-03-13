@@ -102,11 +102,9 @@ function isMobile(){
         document.getElementsByClassName('sear-box')[0].style.width='220px'
         document.getElementsByTagName('input')[0].style.width='140px'
         document.getElementsByTagName('input')[1].style.width='50px'
+        document.documentElement.style.fontSize='5px'
         document.querySelectorAll('.card').forEach(c=>{
             c.style.width='100%'
-            c.onclick=function(){
-                console.log(0);
-            }
         })
         document.querySelectorAll('.ifra').forEach(c=>{
             c.style.width='280px'
