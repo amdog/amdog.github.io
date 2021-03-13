@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meata name="viewport" content="width=device-width, initial-scale=1.0">
         <title>iphone se 产品网页颜色特效切换</title>
-        <style>
-            html {
+        <style>html {
                 font-size: 48px;
                 --iphone-offscreen:-720px;
             }
@@ -79,10 +78,8 @@
             }
             .sticky-container.no-sticky .iphone.red{
                 padding-bottom: calc(var(--iphone-offscreen) * -1);
-            }
-
-        </style>
-</head>
+            }</style>
+</meata></head>
 
 <body>
     <!-- https://www.apple.com.cn/v/iphone-se/d/images/overview/finishes_black__b06syayq94wi_large.png -->
@@ -94,36 +91,34 @@
                 <br>
                 &nbsp;
             </h3>
-            <img src="./1/finishes_black__b06syayq94wi_large.png">
+            <img src="/finishes_black__b06syayq94wi_large.6a763368.png">
         </div>
     <div class="iphone white">
         <h3>有黑的,<br>
             <span>有白的,</span>
         </h3>
-        <img src="./1/finishes_white__drv9fwq9vzwy_large.png">
+        <img src="/finishes_white__drv9fwq9vzwy_large.50b12db9.png">
     </div>
     <div class="iphone red">
         <h3>有黑的,有白的,<br>
             <span>还有这个要火的</span>
         </h3>
-        <img src="./1/finishes_red__eqfv1ongy282_large.png">
+        <img src="/finishes_red__eqfv1ongy282_large.0a0afafe.png">
     </div>
     </div>
 </body>
-<script>
-    window.addEventListener('scroll',(e)=>{
-       let scrolled= document.documentElement.scrollTop/(document.documentElement.clientHeight*2);
-       let white=document.querySelector('.white')
-       let red=document.querySelector('.red')
-       white.style.clipPath=`inset(${(0.5-scrolled)/0.5 * 100}% 0px 0px 0px)`  
-       red.style.clipPath=`inset(${(1-scrolled)/0.5 * 100}% 0px 0px 0px)`
-       console.log(scrolled);
-       
-       if(scrolled >= 1){
-           document.querySelector('.sticky-container').classList.add('no-sticky')
-       }else{
-        document.querySelector('.sticky-container').classList.remove('no-sticky')
-       }
-    })
-</script>
+<script>window.addEventListener('scroll', function (e) {
+  var scrolled = document.documentElement.scrollTop / (document.documentElement.clientHeight * 2);
+  var white = document.querySelector('.white');
+  var red = document.querySelector('.red');
+  white.style.clipPath = "inset(".concat((0.5 - scrolled) / 0.5 * 100, "% 0px 0px 0px)");
+  red.style.clipPath = "inset(".concat((1 - scrolled) / 0.5 * 100, "% 0px 0px 0px)");
+  console.log(scrolled);
+
+  if (scrolled >= 1) {
+    document.querySelector('.sticky-container').classList.add('no-sticky');
+  } else {
+    document.querySelector('.sticky-container').classList.remove('no-sticky');
+  }
+});</script>
 </html>
