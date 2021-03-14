@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>图片放大效果</title>
-    <style>
-        body{
+    <style>body{
             width: 100%;
             height: 100vh;
             display: flex;
@@ -17,28 +16,25 @@
             background-position:calc(var(--x)*100%) calc(var(--y)*100%);
         }
         #image{
-            background-image: url('./2/f.png');
+            background-image: url('/f.0374e4e6.png');
             width: 400px;
             height: 400px;
             background-size: 400px 400px;
-        }
-    </style>
+        }</style>
 </head>
-<script>
-    window.onload=()=>{
-        let image=document.getElementById('image')
-        image.addEventListener('mousemove',function(e){
-            this.style.setProperty('--x',e.offsetX/400)
-            this.style.setProperty('--y',e.offsetY/400)
-        })
-        image.addEventListener('mouseleave',function(e){
-            this.removeAttribute('zoomed')
-        })
-        image.addEventListener('mouseover',function(e){
-            this.setAttribute('zoomed',1)
-        })
-    }
-</script>
+<script>window.onload = function () {
+  var image = document.getElementById('image');
+  image.addEventListener('mousemove', function (e) {
+    this.style.setProperty('--x', e.offsetX / 400);
+    this.style.setProperty('--y', e.offsetY / 400);
+  });
+  image.addEventListener('mouseleave', function (e) {
+    this.removeAttribute('zoomed');
+  });
+  image.addEventListener('mouseover', function (e) {
+    this.setAttribute('zoomed', 1);
+  });
+};</script>
 <body>
     <div id="image">
 
