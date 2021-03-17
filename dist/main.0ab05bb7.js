@@ -221,6 +221,7 @@ function ajax(url, cb) {
 
 function isMobile() {
   if (document.documentElement.clientHeight > document.documentElement.clientWidth) {
+    document.getElementsByClassName('list')[0].style.width = '100%';
     document.getElementsByClassName('sear-box')[0].style.width = '220px';
     document.getElementsByTagName('input')[0].style.width = '140px';
     document.getElementsByTagName('input')[1].style.width = '50px';
@@ -262,7 +263,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52882" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51431" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

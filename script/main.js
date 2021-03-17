@@ -99,6 +99,7 @@ function ajax(url, cb) {
 
 function isMobile(){
     if(document.documentElement.clientHeight > document.documentElement.clientWidth){
+        document.getElementsByClassName('list')[0].style.width='100%'
         document.getElementsByClassName('sear-box')[0].style.width='220px'
         document.getElementsByTagName('input')[0].style.width='140px'
         document.getElementsByTagName('input')[1].style.width='50px'
