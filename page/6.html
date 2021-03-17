@@ -1,11 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>ios开关按钮</title>
+    <style>
+         :root {
+            --button-width: 500px;
+            --button-height: 295px;
+            --toggle-diameter: 255px;
+            --button-toggle-offset: calc((var(--button-height) - var(--toggle-diameter))/2)
+        }
+        
+        span {
+            transition: all 0.3s ease-in-out;
+            display: inline-block;
+            width: var(--button-width);
+            height: var(--button-height);
+            background-color: #ddd;
+            border-radius: calc(var(--button-height)/2);
+            position: relative;
+        }
+        
+        input[type='checkbox'] {
+            display: none;
+        }
+        
+        span::after {
+            content: '';
+            background-color: white;
+            display: inline-block;
+            width: var(--toggle-diameter);
+            height: var(--toggle-diameter);
+            border-radius: calc(var(--toggle-diameter)/2);
+            position: absolute;
+            top: 20px;
+            transform: translateX(var(--button-toggle-offset));
+            box-shadow: var(--button-toggle-offset) 0 calc(var(--button-toggle-offset) * 4) 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        input[type='checkbox']:checked+span {
+            background-color: green;
+        }
+        
+        @media(prefers-color-scheme:dark) {
+            body {
+                background-color: black;
+            }
+            span {
+                background-color: gray;
+            }
+        }
+        
+        input[type='checkbox']:active+span::after {
+            width: calc(var(--toggle-diameter) * 1.2);
+        }
+        
+        input[type='checkbox']:checked:active+span::after {
+            transform: translateX(calc(var(--button-width) - var(--button-toggle-offset) - var(--toggle-diameter) * 1.2));
+        }
+        
+        input[type='checkbox']:checked+span::after {
+            transform: translateX(calc(var(--button-width) - var(--button-toggle-offset) - var(--toggle-diameter)));
+            box-shadow: calc(var(--button-toggle-offset) * -1) 0 calc(var(--button-toggle-offset) * 4) 5px rgba(0, 0, 0, 0.3);
+        }
+    </style>
 </head>
+
 <body>
-    
+    <label for="toggle">
+       <input id="toggle" type="checkbox">   
+    <span>
+        
+    </span> 
+         
+    </label>
+
 </body>
+
 </html>
