@@ -10,13 +10,13 @@ function appendEle(index) {
 var i = 0
 
 window.onload = function() {
-    for (var b = 0; b < 10; b++) {
+    for (var b = 0; b < 12; b++) {
         createBox()
     }
     var clock = setInterval(function() {
         i++
         appendEle(i)
-        if (i >= 10) {
+        if (i >= 8) {
             clearInterval(clock)
         }
     }, 100)
@@ -26,11 +26,12 @@ window.onload = function() {
 var bgList = ['#fda34b', '#FD84AD', '#009688', '#e95c5a', '#86ba4b', '#86C1B9']
 
 function joinTitle(f, i) {
+    document.getElementById(`b${i}`).style.background = bgList[parseInt(Math.random() * 10 % 6)]
     var title = f.contentWindow.document.title
     document.getElementById(`t${i}`).innerText = title
-    document.getElementById(`b${i}`).style.background = bgList[document.getElementsByClassName('card').length % 6]
     var li = document.createElement('li')
-    li.innerText = title
+    li.innerHTML = `<a href='https://amdog.github.io/page/${i}.html'>${title}</a>`
+    document.getElementById('list').appendChild(li)
 }
 
 
@@ -59,21 +60,31 @@ function ping(url, cb) {
     xmlhttp.send();
 }
 
+
+var now = new Date().getTime()
+
 window.onscroll = function() {
     var visionHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
     var scrolledHeight = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
     var trueHeight = document.documentElement.scrollHeight || document.body.scrollHeight
-    if (trueHeight == visionHeight + scrolledHeight) {
-        ping(`https://amdog.github.io/page/${i+1}.html`, function(t) {
-            if (t == 1) {
-                i++
-                if (i <= document.getElementsByClassName('card-box').length) {
-                    for (var b = 0; b < 4; b++) {
-                        createBox()
+    if (trueHeight - 20 <= (visionHeight + scrolledHeight)) {
+        var cur = new Date().getTime()
+        var next = setTimeout(function() {
+            ping(`https://amdog.github.io/page/${i+1}.html`, function(t) {
+                if (t == 1) {
+                    if (i <= document.getElementsByClassName('card-box').length - 4) {
+                        for (var b = 0; b < 4; b++) {
+                            createBox()
+                        }
                     }
+                    i++
+                    appendEle(i)
                 }
-                appendEle(i)
-            }
-        })
+            })
+        }, 1000)
+        if (cur - now < 2000) {
+            now = new Date().getTime()
+            clearTimeout(next)
+        }
     }
 }

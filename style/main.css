@@ -15,12 +15,17 @@ body {
     background-color: #26a69a;
     height: 50px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
 }
 
+.tag {
+    width: 106px;
+    height: 100%;
+}
+
 .col-box {
-    width: 200px;
+    width: 85px;
     height: 100%;
     color: white;
     line-height: 50px;
@@ -137,11 +142,11 @@ a:hover {
 .card>span {
     width: 100%;
     position: absolute;
+    line-height: 80px;
     height: 40%;
     bottom: 0;
     right: 0;
     color: whitesmoke;
-    background-color: rgba(0, 0, 0, 0.5);
     letter-spacing: 5px;
 }
 
