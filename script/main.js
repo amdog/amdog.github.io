@@ -88,3 +88,7 @@ window.onscroll = function() {
         }
     }
 }
+
+function sear() {
+    window.open(`https://github.com/amdog/amdog.github.io/search?q=${document.getElementById('v').value}`)
+}
