@@ -4,6 +4,7 @@ body {
     width: 100%;
     height: 100vh;
     position: relative;
+    background-color: #eee;
 }
 
 .menu {
@@ -21,7 +22,7 @@ body {
 
 .tag {
     width: 106px;
-    height: 100%;
+    height: 32px;
 }
 
 .col-box {
@@ -119,11 +120,12 @@ a:hover {
     width: 100%;
     min-height: 200px;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     z-index: -100;
     margin-top: 50px;
     flex-wrap: wrap;
+    flex-flow: wrap;
 }
 
 .card {
@@ -137,6 +139,7 @@ a:hover {
     animation-fill-mode: forwards;
     position: relative;
     overflow: hidden;
+    margin: 20px;
 }
 
 .card>span {
@@ -148,6 +151,18 @@ a:hover {
     right: 0;
     color: whitesmoke;
     letter-spacing: 5px;
+    transition: .3s all ease-in-out;
+}
+
+.card>span:hover {
+    opacity: .8;
+}
+
+.edit {
+    display: inline-block;
+    position: absolute;
+    bottom: 3px;
+    right: 3px;
 }
 
 .card>iframe {
@@ -173,4 +188,31 @@ a:hover {
     width: 360px;
     height: 300px;
     margin: 15px;
+}
+
+.bot-col {
+    width: 50px;
+    height: 100px;
+    position: fixed;
+    bottom: 40%;
+    right: 6px;
+    opacity: 0;
+    animation: fadein .3s ease-in-out;
+    animation-fill-mode: forwards;
+    transform: scale(0);
+    background-color: #26a69a;
+}
+
+.bot-col label .btn {
+    display: inline-block;
+    height: 48px;
+    border-bottom: white solid 2px;
+}
+
+.bot-col a {
+    width: 100%;
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
 }
