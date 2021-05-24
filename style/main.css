@@ -1,10 +1,208 @@
 body {
-    margin: 0;
-    padding: 0;
     width: 100%;
     height: 100vh;
     position: relative;
     background-color: #eee;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.large {
+    width: 100%;
+    min-height: 90vh;
+    display: flex;
+    background-color: rgba(40, 44, 52);
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+@media screen and (min-width: 320px)and (max-width: 750px) {
+    .large {
+        width: 100%;
+        min-height: 90vh;
+        display: flex;
+        background-color: rgba(40, 44, 52);
+        justify-content: center;
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+    .ani-box {
+        transform: scale(.7);
+        position: relative;
+        left: -20px !important;
+    }
+    h2 {
+        font-size: 16px;
+    }
+    .box-1 {
+        margin-top: 56px;
+    }
+    .clo-next {
+        left: 50% !important;
+        margin-left: -130px;
+    }
+}
+
+.large>div {
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    position: relative;
+    flex-wrap: wrap;
+    cursor: pointer;
+}
+
+.ani-box {
+    width: 320px;
+    height: 400px;
+    position: relative;
+    left: 0;
+}
+
+.box-1 {
+    width: 320px;
+    height: 100%;
+    color: white;
+    display: flex;
+    align-items: center !important;
+    animation: fadein .3s ease-in-out;
+}
+
+.box-1>ul>li {
+    margin-top: 20px;
+}
+
+.box-2 {
+    width: 320px;
+}
+
+.clo-next {
+    width: 260px;
+    height: 48px;
+    font-size: 24px;
+    color: white;
+    background-color: #94e5fc;
+    position: absolute;
+    bottom: 10%;
+    left: 20%;
+    line-height: 48px;
+    text-align: center;
+    letter-spacing: 3px;
+    border-radius: 40px;
+}
+
+.gh {
+    position: relative;
+    bottom: 10%;
+    left: 50%;
+    width: 300px;
+    height: 50px;
+    display: flex;
+    margin-left: -150px;
+    justify-content: center;
+    align-items: center;
+}
+
+.gh-btn {
+    background-color: #eee;
+    height: 24px;
+    line-height: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 80px;
+    margin-left: 5px;
+    border-radius: 4px;
+}
+
+.gh-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+.circy {
+    width: 360px;
+    border: #94e5fc solid 1px;
+    height: 240px;
+    position: relative;
+    border-radius: 50%;
+    margin: 10px;
+    box-sizing: border-box;
+}
+
+.mid {
+    z-index: 400;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    background-color: #94e5fc;
+    left: 50%;
+    top: 30%;
+}
+
+.circy>div {
+    position: absolute;
+    left: calc(50% - 5px);
+    top: calc(50% - 10px);
+    width: 10px;
+    height: 10px;
+    animation: offset 2s linear infinite;
+}
+
+@keyframes offset {
+    0%,
+    100% {
+        transform: translate(60px, 0px);
+    }
+    25%,
+    75% {
+        transform: translate(0px, 0px);
+    }
+    50% {
+        transform: translate(-60px, 0px);
+    }
+}
+
+@keyframes rotate1 {
+    0% {
+        transform: rotate(0deg) translate(120px);
+    }
+    100% {
+        transform: rotate(-360deg) translate(120px);
+    }
+}
+
+@keyframes rotate2 {
+    0% {
+        transform: rotate(0deg) translate(120px);
+    }
+    100% {
+        transform: rotate(360deg) translate(120px);
+    }
+}
+
+.circy>div>span {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 20px;
+    background-color: #61dafb;
+    animation: rotate1 2s linear infinite;
+    animation-direction: normal;
+}
+
+.circy:nth-child(2)>div>span {
+    animation: rotate2 2s linear infinite;
+}
+
+.circy:nth-child(3)>div>span {
+    animation: rotate1 2s linear infinite;
 }
 
 .menu {
@@ -84,7 +282,7 @@ body {
 
 .col-box>ul {
     position: absolute;
-    top: 30px;
+    top: 48px;
     left: 0;
     width: 100%;
     min-height: 200px;
@@ -93,6 +291,7 @@ body {
     background-color: black;
     cursor: pointer;
     opacity: 0;
+    z-index: -1;
     transform: scaleY(0);
     transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
     transform-origin: top;
@@ -144,7 +343,7 @@ a:hover {
 .card>span {
     width: 100%;
     position: absolute;
-    line-height: 80px;
+    font-size: 24px;
     height: 40%;
     bottom: 0;
     right: 0;
@@ -162,6 +361,17 @@ a:hover {
     position: absolute;
     bottom: 3px;
     right: 3px;
+}
+
+.card>span a {
+    display: inline-block;
+    position: absolute;
+    bottom: 3px;
+    right: 3px;
+}
+
+.card>span a:nth-child(1) {
+    right: 39px;
 }
 
 .card>iframe {
@@ -219,7 +429,10 @@ a:hover {
 
 .sear {
     width: 100%;
-    height: 40px;
+    height: 60px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .sear>input {
@@ -227,12 +440,28 @@ a:hover {
     background-color: #000;
     border: 0;
     color: #fff;
-    border-bottom: 1px solid #ccc;
+    height: 32px;
+    border-radius: 8px;
+    border: solid 1px #26a69a;
 }
 
 .sear>span {
-    width: 40px;
-    letter-spacing: 6px;
+    width: 32px;
+    border-radius: 6px;
+    height: 32px;
+    margin-left: 16px;
+    display: flex;
+    justify-content: center;
+    background-color: #26a69a;
+}
+
+.sear>span:hover {
+    background-color: #3cb8ab;
+}
+
+.sear>span>svg {
+    width: 32px;
+    height: 32px;
 }
 
 input {

@@ -2,7 +2,15 @@ function appendEle(index) {
     var div = document.createElement('div')
     div.className = 'card';
     div.id = `c${index}`
-    div.innerHTML = `<iframe scrolling='no' id='i${index}' onload='joinTitle(this,${index})'  src='https://amdog.github.io/page/${index}.html' frameborder="0"></iframe><span class="title" id='b${index}' ><a href='https://amdog.github.io/page/${index}.html' id='t${index}' ></a><a href='https://github.com/amdog/amdog.github.io/edit/master/page/${index}.html'><svg t="1621676071639" class="edit" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5166" width="32" height="32"><path d="M99.84 797.44l297.6-42.88-277.76-265.6L71.04 768a25.6 25.6 0 0 0 28.8 29.44z m64-357.76L444.16 704l284.16-296.96L448 142.72zM545.28 43.52l-47.36 49.92 277.76 264.96 47.36-49.92a30.08 30.08 0 0 0 0-42.24L588.16 42.24a30.08 30.08 0 0 0-42.88 1.28zM192 832h256v128H192zM832 832h128v128h-128zM576 832h128v128H576z" fill="#ffffff" p-id="5167"></path></svg></a></span>`
+    div.innerHTML = `
+    <iframe scrolling='no' id='i${index}' onload='joinTitle(this,${index})'  src='https://amdog.github.io/page/${index}.html' frameborder="0"></iframe><span class="title" id='b${index}' >
+    <a href='https://amdog.github.io/page/${index}.html' id='t${index}' >
+    <img src='./img/mes.svg'>
+    </a>
+    <a href='https://github.com/amdog/amdog.github.io/edit/master/page/${index}.html'>
+    <img src='./img/edit.svg'>
+    </a>
+    </span>`
     var box = document.getElementsByClassName('card-box')[index - 1]
     box.appendChild(div)
 }
