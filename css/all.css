@@ -89,9 +89,6 @@ footer {
     border: 2px solid transparent;
     background: linear-gradient(160deg, #f0f1f4 0%, #e4e6eb 100%);
     box-shadow: -3px -3px 6px 2px #ffffff, 5px 5px 8px 0px rgba(0, 0, 0, 0.17), 1px 2px 2px 0px rgba(0, 0, 0, 0.1);
-    transform: scale(0);
-    opacity: 0;
-    animation: fadein .3s ease-in-out forwards;
 }
 
 .mes {
@@ -249,6 +246,9 @@ input {
     margin: 10px auto;
     margin-top: 40px;
     text-indent: 2em;
+    opacity: 0;
+    transform: scale(0);
+    animation: fadein .3s ease-in-out forwards;
 }
 
 .item {
@@ -300,7 +300,7 @@ td {
 
 .i {
     width: 200px;
-    transform: rotate(-5deg);
+    transform: rotate(10deg);
     height: 200px;
     border-radius: 5px;
     border: 6px solid transparent;
