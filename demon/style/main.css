@@ -303,8 +303,8 @@ body {
 }
 
 a:link {
-    color: white;
     text-decoration: none;
+    color: white;
 }
 
 a:visited {
@@ -340,20 +340,25 @@ a:hover {
     overflow: hidden;
 }
 
+
 .card>span {
     width: 100%;
     position: absolute;
-    font-size: 24px;
-    height: 40%;
+    font-size: 20px;
+    height: 24%;
     bottom: 0;
     right: 0;
-    color: whitesmoke;
     letter-spacing: 5px;
     transition: .3s all ease-in-out;
+    text-align: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, .7);
 }
 
 .card>span:hover {
-    opacity: .8;
+    background: rgba(0, 0, 0, .4);
 }
 
 .edit {
@@ -363,7 +368,8 @@ a:hover {
     right: 3px;
 }
 
-.card>span a {
+
+.card>span a:nth-child(2) {
     display: inline-block;
     position: absolute;
     bottom: 3px;

@@ -3,11 +3,11 @@ function appendEle(index) {
     div.className = 'card';
     div.id = `c${index}`
     div.innerHTML = `
-    <iframe scrolling='no' id='i${index}' onload='joinTitle(this,${index})'  src='https://amdog.github.io/page/${index}.html' frameborder="0"></iframe><span class="title" id='b${index}' >
-    <a href='https://amdog.github.io/page/${index}.html' id='t${index}' >
+    <iframe scrolling='no' id='i${index}' onload='joinTitle(this,${index})'  src='/demon/page/${index}.html' frameborder="0"></iframe><span class="title" id='b${index}' >
+    <a href='/demon/page/${index}.html' id='t${index}' >
     <img src='./img/mes.svg'>
     </a>
-    <a href='https://github.com/amdog/amdog.github.io/edit/master/page/${index}.html'>
+    <a href='https://github.com/amdog/amdog.github.io/blob/master/demon/page/${index}.html'>
     <img src='./img/edit.svg'>
     </a>
     </span>`
@@ -34,11 +34,11 @@ window.onload = function() {
 var bgList = ['#fda34b', '#FD84AD', '#009688', '#e95c5a', '#86ba4b', '#86C1B9']
 
 function joinTitle(f, i) {
-    document.getElementById(`b${i}`).style.background = bgList[i % 6]
+    document.querySelector(`#b${i} a:nth-child(1)`).style.color = `${bgList[i % 6]}`
     var title = f.contentWindow.document.title
     document.getElementById(`t${i}`).innerText = title
     var li = document.createElement('li')
-    li.innerHTML = `<a href='https://amdog.github.io/page/${i}.html'>${title}</a>`
+    li.innerHTML = `<a href='/demon/page/${i}.html'>${title}</a>`
     document.getElementById('list').appendChild(li)
 }
 
@@ -78,7 +78,7 @@ window.onscroll = function() {
     if (trueHeight - 20 <= (visionHeight + scrolledHeight)) {
         var cur = new Date().getTime()
         var next = setTimeout(function() {
-            ping(`https://amdog.github.io/page/${i+1}.html`, function(t) {
+            ping(`/demon/page/${i+1}.html`, function(t) {
                 if (t == 1) {
                     if (i <= document.getElementsByClassName('card-box').length) {
                         for (var b = 0; b < 2; b++) {
