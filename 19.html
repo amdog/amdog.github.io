@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>智多星搞机研究</title>
+</head>
+<style>
+    body {
+        background: white;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .flex-center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .flex-end {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .flex-start {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .flex-between {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+
+    .card {
+        box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px rgba(0, 0, 0, .14), 0 1px 5px rgba(0, 0, 0, .12);
+        width: 90%;
+        margin: 0 auto;
+        padding: 3%;
+        border-radius: 5px;
+        margin-top: 10px;
+        height: 90px;
+    }
+
+    .dlbtn {
+        background-color: #fb7299;
+        width: 100%;
+        height: 2em;
+        color: white;
+        border-radius: 1em;
+        outline: none;
+        border: none;
+        letter-spacing: 3px;
+        appearance: none;
+    }
+
+    @keyframes rotate {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(-360deg);
+        }
+    }
+
+
+
+    /* 应用于小于768像素宽度的设备（平板、手机）*/
+    @media only screen and (max-width: 767px) {
+        #fsImage {
+            display: block;
+        }
+
+        /* 切换到竖屏时应用的样式 */
+        @media only screen and (orientation: portrait) {
+
+            #fsImage {
+                display: block;
+            }
+        }
+
+        /* 切换到横屏时应用的样式 */
+        @media only screen and (orientation: landscape) {
+
+            #fsImage {
+                display: none;
+            }
+        }
+
+    }
+
+    /* 应用于大于等于768像素宽度的设备（PC）*/
+    @media only screen and (min-width: 768px) {
+        #fsImage {
+            display: none;
+        }
+    }
+</style>
+
+<body>
+    <!-- 头部标题 -->
+    <div class="flex-end" style="width: 98%;height: 160px;margin: 0 auto;">
+
+        <div class="flex-center" style="flex-direction: column;width: 85%;position: relative;">
+
+            <img src="./assets/fs.png" id="fsImage" style="position: absolute;right: 80%;bottom:-6px; width: 60px;height: 60px;animation: rotate 1.5s infinite linear;transform: translateZ(0);    border: solid 1px #00c48f;
+                padding: 7px;
+                border-radius: 188px;" alt="">
+            <p style="width: 100%;font-size: 30px;font-weight: bolder;text-align: end;"> <span
+                    style="color: #00c48f;">智多星</span> 搞机研究</p>
+            <span style="width: 60%;background: #00c48f;height: 2px;margin-left: 40%;"></span>
+            <p style="text-align: end;width: 100%;">
+                逆向.脚本.代挂
+            </p>
+
+        </div>
+    </div>
+    <!-- 广告 -->
+
+
+    </div>
+    </div>
+    <!-- 栏目 -->
+    <div class="flex-center" style="font-size: 20px;">
+        <span style="color: #00c48f;margin-right: 4%;border-bottom: #00c48f solid 7px;">下载站</span>
+        <span style="color: #fb7299;">Bilibili频道</span>
+    </div>
+    <!-- 下载列表 -->
+
+
+
+
+
+
+
+
+
+    <div>
+        <div class="card flex-between">
+
+            <div style="width: 20%;" class="flex-center">
+                <img src="./assets/exe.png" style="width: 50px;
+                height: 50px;" alt="">
+            </div>
+            <div style="width: 80%;">
+                <p style="font-size: 17px;font-weight: bold;">自动对话器</p>
+                <small>windows使用，录入坐标信息，设定窗口位置自动对话。</small>
+            </div>
+
+            <div style="width: 20%;" class="flex-center">
+                <button class="dlbtn" data-href="./res/r.exe">下载</button>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <div>
+
+        <iframe style="width: 90%;height: 160px;margin: 0 auto;border: none;outline: none;" src="https://player.bilibili.com/player.html?cid=&aid=&bvid=BV1E34y1z7cm&page=1&as_wide=0&high_quality=0&danmaku=0&t=0" frameborder="0"></iframe>
+
+
+    </div>
+
+
+
+
+
+
+
+</body>
+
+</html>
