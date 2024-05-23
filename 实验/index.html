@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实验室</title>
+</head>
+<style>
+    body {
+        background: white;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .flex-center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .flex-end {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .flex-start {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .flex-between {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+
+    .card {
+        box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px rgba(0, 0, 0, .14), 0 1px 5px rgba(0, 0, 0, .12);
+        width: 90%;
+        margin: 0 auto;
+        padding: 3%;
+        border-radius: 5px;
+        margin-top: 10px;
+        height: 90px;
+    }
+
+    .card-flash {
+        animation: flashBackground 2s ease-in-out;
+    }
+
+    .dlbtn {
+        background-color: #fb7299;
+        width: 4em;
+        height: 2em;
+        color: white;
+        border-radius: 1em;
+        outline: none;
+        border: none;
+        letter-spacing: 3px;
+        appearance: none;
+    }
+
+    @keyframes rotate {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(-360deg);
+        }
+    }
+
+    @keyframes flashBackground {
+        0% {
+            background: #fff;
+        }
+
+        30% {
+            background: #fb7299;
+        }
+
+        40% {
+            background: #fff;
+        }
+
+        60% {
+            background: #fb7299;
+        }
+
+        100% {
+            background: #fff;
+        }
+
+    }
+
+
+</style>
+
+<body>
+    <!-- 头部标题 -->
+    <div class="flex-end" style="width: 98%;height: 160px;margin: 0 auto;">
+
+
+        <div style="background: #00c48f;position: relative;width: 200px;height: 80px;">
+
+            <!-- 画点 -->
+
+            <img src="./assets/fs.png" id="fsImage" style="position: absolute;left: 0px;bottom:0px; width: 60px;height: 60px;
+            animation: rotate 1.5s infinite linear;transform: translateZ(0);    
+            padding: 7px;
+            border-radius: 188px;" alt="">
+        </div>
+
+
+        <div class="flex-center" style="flex-direction: column;width: 65%;position: relative;">
+
+
+
+
+
+            <p style="width: 100%;font-weight: bolder;text-align: end;"> <span
+                    style="color: #fb7299;font-size: 20px;">@小键盘敲代码</span> </p>
+            <span style="width: 60%;background: #fb7299;height: 2px;margin-left: 40%;"></span>
+            <p style="text-align: end;width: 100%;color: #fb7299;">
+            bilibili
+            </p>
+
+        </div>
+    </div>
+    <!-- 广告 -->
+
+
+    </div>
+    </div>
+    <!-- 栏目 -->
+    <div class="flex-center" style="font-size: 20px;margin-bottom: 30px;">
+        <span id="btnSite" style="color: #00c48f;margin-right: 4%;border-bottom: #00c48f solid 4px;">资源下载</span>
+        <span id="btnBili" style="color: #fb7299;">Bilibili频道</span>
+    </div>
+    <!-- 下载列表 -->
+
+
+
+
+
+
+
+    <!-- outerSite start -->
+
+    <div id="outerSite">
+
+
+
+
+
+
+        <div>
+            <div id="p1" class="card flex-between">
+
+                <div style="width: 20%;" class="flex-center">
+                    <img src="./assets/exe.png" style="width: 50px;
+                height: 50px;" alt="">
+                </div>
+                <div style="width: 80%;">
+                    <p style="font-size: 17px;font-weight: bold;">自动对话器</p>
+                    <small>windows使用，录入坐标信息，设定窗口位置自动对话。</small>
+                </div>
+
+                <div style="width: 20%;" class="flex-center">
+                    <a href="./res/r.exe">
+                        <button class="dlbtn" data-href="./res/r.exe">下载</button>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+    </div>
+    <!-- outerSite end -->
+
+    <div id="outerBili">
+
+
+
+    </div>
+
+
+    <div style="text-align: center;">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        copyright amdog
+        <br>
+        <br>
+        <br>
+        <br>
+
+
+    </div>
+
+
+    <script type="text/template" id="biliView">
+
+
+        <div style="width: 90%;height: 200px;margin: 0 auto;">
+            <p> <span id="v1" style="color: #fb7299;font-weight: bold;height: 2em;line-height: 2em;">#</span> 
+                自动聊天发消息使用教程
+            </p>
+            <iframe style="width: 100%;height: 170px;margin: 0 auto;border: none;outline: none;"
+                src="https://player.bilibili.com/player.html?cid=&aid=&bvid=BV1E34y1z7cm&page=1&as_wide=0&high_quality=0&danmaku=0&t=0"
+                frameborder="0"></iframe>
+
+        </div>
+
+
+    </script>
+
+    <script>
+        (() => {
+            let first = true
+            let btnSite = document.querySelector('#btnSite')
+            let outerBili = document.querySelector('#outerBili')
+            let outerSite = document.querySelector('#outerSite')
+            let btnBili = document.querySelector('#btnBili')
+
+            btnBili.addEventListener('click', () => {
+                btnSite.style.borderBottom = ''
+                btnBili.style.borderBottom = '#fb7299 solid 4px'
+                // 加载视频
+                if (first) {
+                    outerBili.innerHTML = document.querySelector('#biliView').innerHTML
+                    first = false;
+                }
+                outerBili.style.display = 'block'
+                outerSite.style.display = 'none'
+
+
+            })
+            btnSite.addEventListener('click', () => {
+                btnBili.style.borderBottom = ''
+                btnSite.style.borderBottom = '#00c48f solid 4px'
+                outerBili.style.display = 'none'
+                outerSite.style.display = 'block'
+            })
+
+
+            let id = window.location.href.split('#')[1]
+            if (id) {
+                let focusEle = document.querySelector('#' + id)
+                if (focusEle) {
+                    focusEle.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    })
+                    focusEle.classList.add('card-flash')
+                }
+
+            }
+
+
+        })();
+    </script>
+
+
+
+
+</body>
+
+</html>
