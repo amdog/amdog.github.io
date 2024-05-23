@@ -1,0 +1,717 @@
+const media_key = CryptoJS[String.fromCharCode(101) + String.fromCharCode(110) + String.fromCharCode(99)][String.fromCharCode(85) + String.fromCharCode(116) + String.fromCharCode(102) + String.fromCharCode(56)][`${String.fromCharCode(112)}arse`]("102_53_100_57_54_53_100_102_55_53_51_51_54_50_55_48"
+    .split("_")
+    .map((a) => String.fromCharCode(parseInt(a)))
+    .join(""));
+
+const media_iv = CryptoJS[String.fromCharCode(101) + String.fromCharCode(110) + String.fromCharCode(99)][String.fromCharCode(85) + String.fromCharCode(116) + String.fromCharCode(102) + String.fromCharCode(56)][`${String.fromCharCode(112)}arse`]("57_55_98_54_48_51_57_52_97_98_99_50_102_98_101_49"
+    .split("_")
+    .map((a) => String.fromCharCode(parseInt(a)))
+    .join(""));
+
+function decryptImage(word) {
+    const decrypt = CryptoJS[String.fromCharCode(65) + String.fromCharCode(69) + String.fromCharCode(83)]["100_101_99_114_121_112_116"
+        .split("_")
+        .map((a) => String.fromCharCode(parseInt(a)))
+        .join("")](word, media_key, {
+        iv: media_iv,
+        mode: CryptoJS["109_111_100_101"
+            .split("_")
+            .map((a) => String.fromCharCode(parseInt(a)))
+            .join("")][String.fromCharCode(67) + String.fromCharCode(66) + String.fromCharCode(67)],
+        padding: CryptoJS[`${String.fromCharCode(112)}ad`][`${String.fromCharCode(78)}o${String.fromCharCode(80)}adding`],
+    });
+    return decrypt.toString(CryptoJS.enc.Base64);
+}
+
+function hex2bin(str) {
+    let bytes = [];
+    for (var i = 0; i < str.length - 1; i += 2) {
+        bytes.push(parseInt(str.substr(i, 2), 16));
+    }
+    return String.fromCharCode.apply(String, bytes);
+}
+
+function remove_attr(obj, type) {
+    $(obj).removeAttr('fill-img');
+    if (type === 1) {
+        $(obj).removeAttr('data-v-a51695bc');
+        $(obj).attr('src', source_cdn + '/static/pc/img/placeholder.d8718ab.png');
+    }
+}
+
+function loadImg(obj, url, type = 1) {
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', url);
+    xhr.responseType = 'arraybuffer';
+    xhr.onreadystatechange = function getPdfOnreadystatechange(e) {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                let data = (xhr.mozResponseArrayBuffer || xhr.mozResponse || xhr.responseArrayBuffer || xhr.response);
+                let blob = new Blob([data]);
+                let reader = new FileReader;
+                reader.onload = function (t) {
+                    let n = t.target.result;
+                    let base64 = n.substring(n.indexOf(",") + 1);
+                    let ext = 'jpeg';
+                    if (url.endsWith('.png')) {
+                        ext = 'png';
+                    } else if (url.endsWith('.gif')) {
+                        ext = 'gif';
+                    } else if (url.endsWith('.jpg')) {
+                        ext = 'jpeg';
+                    }
+                    let rs = decryptImage(base64);
+                    if (type === 1) {
+                        $(obj).attr({
+                            'src': 'data:image/' + ext + ';base64,' + rs,
+                            'onload': '',
+                            'class': "fill-img",
+                            "data-v-a51695bc": "",
+                            'onerror': "remove_attr(this,1)"
+                        });
+                        return;
+                    } else if (type === 2) {
+                        $(obj).attr({
+                            'src': 'data:image/' + ext + ';base64,' + rs,
+                            'onload': '',
+                            'class': "fill-img notice-image",
+                            "data-v-75b009e6": "",
+                            'onerror': "remove_attr(this,2)"
+                        });
+                        return;
+                    } else if (type === 3) {
+                        $(obj).attr({
+                            'src': 'data:image/' + ext + ';base64,' + rs,
+                            'onload': '',
+                            'class': "fill-img icon-user",
+                            "data-v-5cf453c5": "",
+                            "data-v-75b009e6": "",
+                            'onerror': "remove_attr(this,3)"
+                        });
+                        return;
+                    } else if (type === 4) {
+                        $(obj).attr({
+                            'src': 'data:image/' + ext + ';base64,' + rs,
+                            'onload': '',
+                            'class': "fill-img icon",
+                            "data-v-647adc3a": "",
+                            "data-v-75b009e6": "",
+                            'onerror': "remove_attr(this,4)"
+                        })
+                        return;
+                    }
+                };
+                reader.readAsDataURL(blob);
+            }
+        }
+    };
+    xhr.send(null);
+}
+
+function loadShareImg(obj, url, type = 1) {
+    $.ajax({
+        url: '/index/share',
+        type: 'post',
+        data: {'url': share_url, 'img': url},
+        dataType: 'json',
+        success: function (evt) {
+            if (evt.code === 0) {
+                $(obj).attr({
+                    'src': evt.data,
+                    'onload': '',
+                    'class': "fill-img",
+                    "data-v-a51695bc": "",
+                    'onerror': "remove_attr(this,1)"
+                });
+            } else {
+                layer.msg(evt.msg);
+            }
+        }
+    });
+}
+
+$(function () {
+    $('.gotoclick').click(function (e) {
+        e.preventDefault();
+        let href = $(this).attr('href');
+        let target = $(this).attr('target');
+        let position = $(this).attr('position');
+        let adv_id = $(this).attr('adv_id');
+        let nwindow = window;
+        if (target === '_blank') {
+            // 打开新页面 兼容苹果
+            nwindow = window.open('')
+        }
+        let goto = function (href) {
+            if (target === '_blank') {
+                nwindow.location.href = href
+            } else {
+                nwindow.location.href = href;
+            }
+        };
+        $.ajax({
+            url: statistics_domain + '/index/ad',
+            data: {'position': position, 'adv_id': adv_id},
+            success: function () {
+                goto(href);
+            },
+            error: function () {
+                goto(href);
+            }
+        });
+    });
+    let clipboardJS1 = new ClipboardJS('.share-button');
+    clipboardJS1.on('success', function () {
+        layer.msg('已复制成功');
+    });
+    let clipboardJS2 = new ClipboardJS('.share-btn');
+    clipboardJS2.on('success', function () {
+        layer.msg('已复制成功');
+    });
+});
+
+function getQueryString(name) {
+    let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    let r = window.location.search.substr(1).match(reg);
+    if (r != null) {
+        return decodeURIComponent(r[2]);
+    }
+    return '';
+}
+
+var logZt = [];
+var regZt = [];
+var logoutZt = [];
+var logCt = 0;
+var regCt = 0;
+var logoutCt = 0;
+
+function load_check(type) {
+    if (type === 1) {
+        logZt.push(1);
+        if (logZt.length === logCt) {
+            setTimeout(function () {
+                window.location.reload();
+            }, 1000);
+            logZt = [];
+            logCt = 0;
+        }
+    } else if (type === 2) {
+        regZt.push(1);
+        if (regZt.length === regCt) {
+            setTimeout(function () {
+                window.location.reload();
+            }, 1000);
+            regZt = [];
+            regCt = 0;
+        }
+    } else if (type === 3) {
+        logoutZt.push(1);
+        if (logoutZt.length === logoutCt) {
+            setTimeout(function () {
+                window.location.reload();
+            }, 1000);
+            logoutZt = [];
+            logoutCt = 0;
+        }
+    }
+}
+
+function reloaddom(type, scripts) {
+    if (scripts.length === 0) {
+        window.location.reload();
+    } else if (type === 1) {
+        logCt = scripts.length;
+        logZt = [];
+    } else if (type === 2) {
+        regCt = scripts.length;
+        regZt = [];
+    } else if (type === 3) {
+        logoutCt = scripts.length;
+        logoutZt = [];
+    }
+    for (let i in scripts) {
+        let ele = document.createElement('script');
+        ele.type = "text/javascript";
+        ele.src = scripts[i];
+        ele.onerror = function () {
+            load_check(type);
+        };
+        ele.onload = function () {
+            load_check(type);
+        };
+        document.body.appendChild(ele);
+    }
+}
+
+
+function login() {
+    let username = $('#log-username').val();
+    let password = $('#log-password').val();
+    if (username.length <= 0) {
+        layer.msg('用户名不能为空');
+        return;
+    }
+    if (password.length <= 0) {
+        layer.msg('密码不能为空');
+        return;
+    }
+    $.ajax({
+        url: '/index/login',
+        type: 'post',
+        data: {'username': username, 'password': password},
+        dataType: 'json',
+        success: function (evt) {
+            if (evt.code === 0) {
+                reloaddom(1, evt.data);
+            } else {
+                layer.msg(evt.msg);
+            }
+        }
+    });
+}
+
+
+function logout() {
+    $.ajax({
+        url: '/index/logout',
+        type: 'post',
+        data: {},
+        dataType: 'json',
+        success: function (evt) {
+            if (evt.code === 0) {
+                reloaddom(3, evt.data);
+            } else {
+                layer.msg(evt.msg);
+            }
+        }
+    });
+}
+
+
+function register() {
+    let email = $('#reg-email').val();
+    let username = $('#reg-username').val();
+    let password = $('#reg-password').val();
+    let code = $('#reg-code').val();
+    let inviteAff = getQueryString('aff');
+    if (email.length <= 0) {
+        layer.msg('邮箱不能为空');
+        return;
+    } else if (username.length <= 0) {
+        layer.msg('用户名不能为空');
+        return;
+    } else if (password.length <= 0) {
+        layer.msg('密码不能为空');
+        return;
+    } else if (code.length <= 0) {
+        layer.msg('验证码不能为空');
+        return;
+    }
+    $.ajax({
+        url: '/index/register',
+        type: 'post',
+        data: {'username': username, 'password': password, 'email': email, 'code': code, 'invitedAff': inviteAff},
+        dataType: 'json',
+        success: function (evt) {
+            if (evt.code === 0) {
+
+                layer.msg('注册成功,正在跳转，请稍后');
+                reloaddom(2, evt.data);
+            } else {
+                layer.msg(evt.msg);
+            }
+        }
+    });
+}
+
+
+function send_code() {
+    let email = $('#reg-email').val();
+    if (email.length <= 0) {
+        layer.msg('邮箱不能为空');
+        return;
+    }
+    $.ajax({
+        url: '/index/send_code',
+        type: 'post',
+        data: {'email': email},
+        dataType: 'json',
+        success: function (evt) {
+            if (evt.code === 0) {
+
+                layer.msg(evt.data);
+            } else {
+                layer.msg(evt.msg);
+            }
+        }
+    });
+}
+
+function goto_share(url) {
+    /*if (document.cookie.indexOf('hl_auth:v3') === -1) {
+        layer.msg('请注册/登录后,再分享此文章');
+        return;
+    }*/
+    window.location.href = url;
+}
+
+
+function search_article(page) {
+    let word = $('#search-word').val();
+    if (word.length === 0) {
+        layer.msg('关键字不能为空');
+        return;
+    }
+    $.ajax({
+        url: '/index/search_article',
+        type: 'post',
+        data: {'word': word, 'page': page},
+        dataType: 'json',
+        success: function (evt) {
+            if (evt.code === 0) {
+                let html2 = '';
+                let html = '<div class="line seach-result" data-v-635c4110></div>';
+                html += '<div class="result-cotaniner seach-result" data-v-635c4110="">';
+                if (evt.data.list.length === 0) {
+                    html += '<div class="result-empty" data-v-635c4110="">没有匹配到 "' + word + '" 的内容</div>';
+                } else {
+                    for (let i in evt.data.list) {
+                        let blank = evt.data.list[i].type === 1 ? '_blank' : '';
+                        // html += `<a href="/archives/${evt.data.list[i].id}.html" target="${blank}" class="result-item" data-v-635c4110="">${evt.data.list[i].title}</a>`;
+                        html += `<div class="video-item " data-v-a51695bc="" data-v-af356722="">
+                                    <a class="cursor-pointer" data-v-a51695bc="" href="/archives/${evt.data.list[i].id}.html" target="${blank}">
+                                    <div class="video-item-img" data-v-a51695bc="">
+                                        <div class="title" data-v-a51695bc="">${evt.data.list[i].title}</div>
+                                        <div class="mask" style="opacity:0.3;" data-v-a51695bc=""></div>
+                                        <div class="placeholder-img" data-v-75b009e6="" data-v-a51695bc="">
+                                             <img src=`+ source_cdn + `"/static/pc/img/placeholder.d8718ab.png" alt="placeholder"
+                                             onload="loadImg(this,'${evt.data.list[i].thumb}')">
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>`;
+                    }
+                    html2 = '<div id="pagination" class="pagination" data-v-65bc2dd7="">' + generate_page_link(word, evt.data.cur_page, evt.data.total_page) + '</div>'
+                }
+                console.log(html2)
+                html += '</div>';
+                html += html2;
+                $('#history').remove()
+                $('#result-x').html(html);
+            } else {
+                layer.msg(evt.msg);
+            }
+        }
+    });
+}
+
+
+function search_article2(word, page) {
+    $('#search-word').val(word);
+    search_article(page)
+}
+
+
+function comment_article(type, id) {
+    let content = $('#article_comment').val();
+    if (content.length === 0) {
+        layer.msg('内容不能为空');
+        return;
+    }
+    let commentnickname = $('#article_comment_nickname').val();
+    $.ajax({
+        url: '/index/comment',
+        type: 'post',
+        data: {'type': type, 'id': id, 'content': content, 'commentnickname': commentnickname},
+        dataType: 'json',
+        success: function (evt) {
+            if (evt.code === 0) {
+                $('#article_comment').val('');
+                $('#article_comment_nickname').val('');
+                layer.msg(evt.data);
+            } else {
+                layer.msg(evt.msg);
+            }
+        }
+    });
+}
+
+
+function article_comments(type, id, page, fn) {
+    $.ajax({
+        url: '/comments/' + type + '/' + id + '/' + page + '.json',
+        type: 'get',
+        data: {},
+        dataType: 'json',
+        success: function (evt) {
+            if (evt.code === 0) {
+
+                fn(evt.data);
+            } else {
+                layer.msg(evt.msg);
+            }
+        }
+    });
+}
+
+function pclose(k, word) {
+    $.ajax({
+        url: '/index/clear',
+        type: 'post',
+        data: {'type': 2, 'word': word},
+        dataType: 'json',
+        success: function (evt) {
+            if (evt.code === 0) {
+                $('#record-' + k).remove();
+                if ($('.record').length === 1) {
+                    $('#history').remove();
+                }
+            } else {
+                layer.msg(evt.msg);
+            }
+        }
+    });
+}
+
+function clear_record() {
+    $.ajax({
+        url: '/index/clear',
+        type: 'post',
+        data: {'type': 1, 'word': ''},
+        dataType: 'json',
+        success: function (evt) {
+            if (evt.code === 0) {
+
+                $('.record').remove();
+            } else {
+                layer.msg(evt.msg);
+            }
+        }
+    });
+}
+
+function commentx(id) {
+    let txt = $('#content-' + id).val();
+    if (txt.length === 0) {
+        layer.msg('请输入你的评论');
+        return;
+    }
+    let commentnickname = $('#content-nickname-' + id).val();
+    $.ajax({
+        url: '/index/comment',
+        type: 'post',
+        data: {'type': 2, 'id': id, 'content': txt, 'commentnickname': commentnickname},
+        dataType: 'json',
+        success: function (evt) {
+            if (evt.code === 0) {
+                layer.msg(evt.data);
+                $('#content-' + id).val('');
+                $('#content-nickname-' + id).val('');
+            } else {
+                layer.msg(evt.msg);
+            }
+        }
+    });
+}
+
+function timeFormat(time) {
+    var nowTime = new Date();
+    var day = nowTime.getDate();
+    var hours = parseInt(nowTime.getHours());
+    var minutes = nowTime.getMinutes();
+
+    var timeday = time.substring(8, 10);
+    var timehours = parseInt(time.substring(11, 13));
+    var timeminutes = time.substring(14, 16);
+    var d_day = Math.abs(day - timeday);
+    var d_hours = hours - timehours;
+    var d_minutes = Math.abs(minutes - timeminutes);
+    if (d_day <= 1) {
+        switch (d_day) {
+            case 0:
+                if (d_hours === 0 && d_minutes > 0) {
+                    return d_minutes + '分钟前';
+                } else if (d_hours === 0 && d_minutes === 0) {
+                    return '1分钟前';
+                } else {
+                    return d_hours + '小时前';
+                }
+                break;
+            case 1:
+                if (d_hours < 0) {
+                    return (24 + d_hours) + '小时前';
+                } else {
+                    return d_day + '天前';
+                }
+                break;
+        }
+    } else if (d_day > 1 && d_day < 10) {
+        return d_day + '天前';
+    } else {
+        return time;
+    }
+}
+
+
+function generate_page_link(word, cur, total) {
+    let html = '';
+    let prev_link = '';
+    let next_link = '';
+    let page_link = '';
+    let prev = '<a %s class="prev cursor-pointer iconfont icon-arrow-down" style="cursor: pointer" data-v-65bc2dd7=""></a>';
+    if (cur === 1) {
+        prev_link = prev.replace('%s', "");
+    } else {
+        prev_link = prev.replace('%s', 'onclick=\'search_article(' + (cur - 1) + ')\'');
+    }
+
+    html += prev_link;
+
+    function gen(st, sp) {
+        let rs = [];
+        for (let i = st; i <= sp; i++) {
+            rs.push(i)
+        }
+        return rs
+    }
+
+
+    let pages = [];
+    if (total <= 6) {
+        pages = gen(1, total);
+    } else {
+        if (cur > total - 4) {
+            if (cur > 1) {
+                pages = gen(total - 4, total);
+                pages.unshift(1);
+            } else {
+                pages = gen(total - 5, total);
+            }
+        } else {
+            if (cur > 1) {
+                let nx = cur + 10 > total ? total : cur + 10;
+                pages = gen(cur, cur + 3);
+                pages.unshift(1);
+                pages.push(nx);
+            } else {
+                let nx = cur + 10 > total ? total : cur + 10;
+                pages = gen(cur, cur + 4);
+                pages.push(nx - 1);
+            }
+        }
+    }
+
+    for (let k in pages) {
+        let i = pages[k];
+        page_link = '<a class="page-item %s1" %s2 data-v-65bc2dd7=""><span style="cursor: pointer" data-v-65bc2dd7="">%s3</span></a>';
+        let css = '';
+        if (cur === i) {
+            css = 'active';
+        }
+        html += page_link.replace('%s1', css).replace('%s2', 'onclick="search_article(' + i + ')"').replace('%s3', i);
+    }
+
+    let next = '<a %s class="next cursor-pointer iconfont icon-arrow-down" data-v-65bc2dd7="" style="cursor: pointer"></a>';
+    if (cur === total) {
+        next_link = next.replace('%s', "");
+    } else {
+        next_link = next.replace('%s', 'onclick=\'search_article(' + (cur + 1) + ')\'');
+    }
+    html += next_link;
+    return html;
+}
+
+
+let domain = domains[Math.floor(Math.random() * domains.length)];
+let back = encodeURIComponent(location.href);
+let aff = getQueryString('aff');
+
+function goto_login() {
+    //console.log(domain + '?type=1&back=' + back + '&aff=' + aff);
+    window.location.href = domain + '?type=1&back=' + back + '&aff=' + aff;
+}
+
+function goto_register() {
+    //console.log(domain + '?type=2&back=' + back + '&aff=' + aff);
+    window.location.href = domain + '?type=2&back=' + back + '&aff=' + aff;
+}
+
+function goto_bind_email(bind_domain) {
+    window.location.href = bind_domain + '?type=5&back=' + back + '&aff=' + aff;
+}
+
+function scroll( fn ) {
+    var beforeScrollTop = $(this).scrollTop(),
+        fn = fn || function() {};
+    window.addEventListener("scroll", function() {
+        var afterScrollTop = $(this).scrollTop(),
+            delta = afterScrollTop - beforeScrollTop;
+
+        if( delta === 0 ) return false;
+        fn( delta > 0 ? "down" : "up" );
+
+        beforeScrollTop = afterScrollTop;
+    }, false);
+}
+scroll(function(direction) {
+    // if(direction == "up"){
+    //     $('.slider-content').show(100);
+    // }else if(direction == "down"){
+    //     $('.slider-content').hide();
+    // }else{
+    //     $('.slider-content').show();
+    // }
+});
+
+function collect(obj, id) {
+    let _login = is_login();
+    if(_login == false) {
+        layer.msg('请先登录');
+        return;
+    }
+    let _this = $(obj);
+    let _src = _this.attr('src');
+    let liked_url = source_cdn + '/static/pc/img/liked.png';
+    let like_url  = source_cdn + '/static/pc/img/like.png';
+    $.ajax({
+        url: '/index/collecting',
+        type: 'post',
+        data: {'id': id},
+        dataType: 'json',
+        success: function (evt) {
+            if(evt.code != 0) {
+                layer.msg(evt.msg);
+            }else{
+                _this.attr('src', _src == liked_url ? like_url : liked_url);
+            }
+        }
+    });
+}
+
+function is_login() {
+    if (document.cookie.indexOf('hl_auth:v3') === -1) {
+       return false;
+    }
+    return true;
+}
+
+function get_user_liked(id) {
+    let _login = is_login();
+    console.log(id);
+
+    if(_login == false) {
+        return;
+    }
+    $.ajax({
+        url: '/index/user_liked_by_id',
+        type: 'post',
+        data: {'id': id},
+        dataType: 'json',
+        success: function (evt) {
+            if(evt.data.has_collect) {
+                $('#liking').attr('src', source_cdn + '/static/pc/img/liked.png');
+            }
+        }
+    });
+}
